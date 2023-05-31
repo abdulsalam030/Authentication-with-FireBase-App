@@ -3,7 +3,7 @@ import 'firebase/auth'
 
 const app = firebase.initializeApp({
     apiKey: process.env.REACT_FIREBASE_API_KEY,
-    authDomain: process.env.REACT_FIREBASE_AUTHDOMAIN ,
+    authDomain: process.env.REACT_FIREBASE_AUTHDOMAIN,
     projectId: process.env.REACT_FIREBASE_PROJECTID,
     storageBucket: process.env.REACT_FIREBASE_STORAGEBUCKET,
     messagingSenderId: process.env.REACT_FIREBASE_MESSAGINGSENDERID,
