@@ -1,21 +1,18 @@
 import { useState } from 'react';
 import { useNavigate,Link  } from 'react-router-dom';
 import { Form, Button, Card } from "react-bootstrap";
-import { getAuth, createUserWithEmailAndPassword,updateProfile } from "firebase/auth";
-import {setDoc,doc,serverTimestamp} from 'firebase/firestore'
- import {db} from '../firebase'
-
 import visibilityIcon from '../assets/visibilityIcon.svg'
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 
-function SignUp() {
+
+function SignIn() {
     const [showPassword,setShowPassword] = useState(false);
     const [formData,setFormData] = useState({
-        name: "",
         email: "",
         password: ""
     })
-    const {name,email,password} = formData
+    const {email,password} = formData
     const navigate = useNavigate()
 
     const onChange = (e) => {
@@ -25,43 +22,34 @@ function SignUp() {
         }) )
     }
 
+
     const onSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        const auth = getAuth();
-        const userCredentials = await createUserWithEmailAndPassword(auth,email,password)
-        const user = userCredentials.user
+        e.preventDefault();
+        try {
+          const auth = getAuth();
+          const userCredentials = await signInWithEmailAndPassword(auth,email,password)
+        //   const user = userCredentials.user
+        if(userCredentials.user) {
+            navigate('/profile')
+        }
 
-        updateProfile(auth.currentUser, {
-          displayName:name
-        })
-        navigate('/')
-
-       const formDataCopy = [...formData]
-       delete formDataCopy.password
-       formDataCopy.timestamp = serverTimestamp()
-
-       await setDoc(doc(db,'users', user.uid),formDataCopy)
+  
         
-      } catch (error) {
-        console.log(error)
-        alert(error)
-        
+          
+        } catch (error) {
+          console.log(error)
+          alert(error)
+          
+        }
+  
       }
-
-    }
    
   return (
     <>
     <Card>
       <Card.Body>
-        <h2 className="text-center mb-4" >SignUp</h2>
-    <Form onSubmit={onSubmit} >
-    <Form.Group className="mb-3" id="email">
-        <Form.Label>Name</Form.Label>
-        <Form.Control type="text"  placeholder="Enter name" id="name" value={name} onChange={onChange} required />
-      </Form.Group>
-
+        <h2 className="text-center mb-4" >SignIn</h2>
+    <Form onSubmit={onSubmit}>
       <Form.Group className="mb-3" id="email">
         <Form.Label>Email address</Form.Label>
         <Form.Control type="text"  placeholder="Enter email" id="email" value={email} onChange={onChange} required />
@@ -71,7 +59,7 @@ function SignUp() {
         <Form.Label>Password</Form.Label>
         <Form.Control type={showPassword ? 'text': 'password'}  placeholder="Enter password"
          id='password' value={password} onChange={onChange} className='passwordInput' required />
-          <img src={visibilityIcon} alt="showpassword" className='showPasswordUp' 
+          <img src={visibilityIcon} alt="showpassword" className='showPassword' 
           onClick={() => setShowPassword((prevState)=> !prevState)}
           />
       </Form.Group>
@@ -84,8 +72,8 @@ function SignUp() {
     </Card.Body>
     </Card>
 
-    <Link to='/' className="w-100 text-left mt-2 text-decoration-none" > 
-      SignIn
+    <Link to='/sign-up' className="w-100 text-left mt-2 text-decoration-none" > 
+      Don't have an account? Signup
     </Link>
 
     <Link to='/forgot-password' className='forgotPasswordLink' >
@@ -97,4 +85,4 @@ function SignUp() {
   )
 }
 
-export default SignUp
+export default SignIn
