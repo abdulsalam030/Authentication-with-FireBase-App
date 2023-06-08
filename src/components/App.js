@@ -3,6 +3,8 @@ import Signup from './Signup'
 import SignIn from './SignIn'
 import ForgotPassword from './ForgotPassword'
 import {Container} from 'react-bootstrap'
+import {ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter as Router,Routes, Route} from 'react-router-dom'
 import Profile from './Profile'
 import './App.css';
@@ -20,6 +22,7 @@ function App() {
           <Route path="/profile" element= { <Profile/> } />
           </Routes>
         </Router>
+        <ToastContainer/>
       </div>
     </Container>
   )

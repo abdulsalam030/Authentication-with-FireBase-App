@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate,Link  } from 'react-router-dom';
 import { Form, Button, Card } from "react-bootstrap";
 import visibilityIcon from '../assets/visibilityIcon.svg'
+import {toast } from 'react-toastify'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 
@@ -32,14 +33,9 @@ function SignIn() {
         if(userCredentials.user) {
             navigate('/profile')
         }
-
-  
-        
-          
         } catch (error) {
           console.log(error)
-          alert(error)
-          
+          toast.error("Bad Credentials")
         }
   
       }
