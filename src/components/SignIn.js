@@ -4,6 +4,7 @@ import { Form, Button, Card } from "react-bootstrap";
 import visibilityIcon from '../assets/visibilityIcon.svg'
 import {toast } from 'react-toastify'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import Spinner from './Spinner';
 
 
 
@@ -31,7 +32,8 @@ function SignIn() {
           const userCredentials = await signInWithEmailAndPassword(auth,email,password)
         //   const user = userCredentials.user
         if(userCredentials.user) {
-            navigate('/profile')
+            navigate('/home')
+            return <Spinner/>
         }
         } catch (error) {
           console.log(error)

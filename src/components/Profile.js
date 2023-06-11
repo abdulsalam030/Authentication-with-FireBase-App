@@ -23,7 +23,7 @@ function Profile() {
 
     const onLogout =  () => {
         auth.signOut();
-        navigate("/sign-up")
+        navigate("/")
     }
 
     const onSubmit = async () => {

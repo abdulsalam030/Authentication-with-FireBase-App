@@ -7,6 +7,8 @@ import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter as Router,Routes, Route} from 'react-router-dom'
 import Profile from './Profile'
+import Home from './Home'
+import PrivateRoute from '../PrivateRoute'
 import './App.css';
 
 function App() {
@@ -19,7 +21,10 @@ function App() {
           <Route path='/'  element={<SignIn/>}/>
           <Route path="/sign-up" element= { <Signup/> } />
           <Route path="/forgot-password" element= { <ForgotPassword/> } />
+          <Route path='/profile' element={<PrivateRoute/>}  >
           <Route path="/profile" element= { <Profile/> } />
+          </Route>
+          <Route path="/home" element= { <Home/> } />
           </Routes>
         </Router>
         <ToastContainer/>
