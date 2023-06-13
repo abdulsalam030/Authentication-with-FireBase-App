@@ -45,6 +45,8 @@ function Profile() {
         } catch (error) {
             console.log(error)
             toast.error("Could not Update Details ")
+            const errorMessage = error.message;
+            toast.error(errorMessage)
             
         }
 

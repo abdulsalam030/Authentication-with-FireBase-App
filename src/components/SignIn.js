@@ -5,6 +5,7 @@ import visibilityIcon from '../assets/visibilityIcon.svg'
 import {toast } from 'react-toastify'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import Spinner from './Spinner';
+import GoogleAuth from './GoogleAuth';
 
 
 
@@ -37,7 +38,11 @@ function SignIn() {
         }
         } catch (error) {
           console.log(error)
-          toast.error("Bad Credentials")
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode);
+          console.log(errorMessage)
+          toast.error(errorMessage)
         }
   
       }
@@ -79,6 +84,7 @@ function SignIn() {
     </Link>
 
      {/* Google Auth  */}
+     <GoogleAuth/>
     </>
   )
 }

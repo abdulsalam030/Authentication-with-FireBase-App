@@ -5,6 +5,8 @@ import {toast} from 'react-toastify'
 import { getAuth, createUserWithEmailAndPassword,updateProfile } from "firebase/auth";
 import {setDoc,doc,serverTimestamp} from 'firebase/firestore'
  import {db} from '../firebase'
+ import GoogleAuth from './GoogleAuth';
+
 
 import visibilityIcon from '../assets/visibilityIcon.svg'
 
@@ -94,6 +96,7 @@ function SignUp() {
     </Link>
 
      {/* Google Auth  */}
+     <GoogleAuth/>
     </>
   )
 }
