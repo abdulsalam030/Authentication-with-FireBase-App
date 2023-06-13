@@ -15,11 +15,8 @@ function Profile() {
         name : auth.currentUser.displayName,
         email : auth.currentUser.email,
     })
-
     const {name,email} = formData
-
     const navigate = useNavigate()
-
 
     const onLogout =  () => {
         auth.signOut();
@@ -34,22 +31,17 @@ function Profile() {
                     displayName : name
                 })
             }
-
             // Update in FireStore
             const userRef = doc(db, 'users', auth.currentUser.uid)
             await updateDoc(userRef, {
                 name 
             })
-
-            
         } catch (error) {
             console.log(error)
             toast.error("Could not Update Details ")
             const errorMessage = error.message;
             toast.error(errorMessage)
-            
         }
-
     }
 
     const onChange = (e) => {
@@ -57,31 +49,24 @@ function Profile() {
             ...prevState,
             [e.target.id] : e.target.value
         } ) )
-
     }
    
-
-
   return (
     <>
       <Card>
       <Card.Body>
         <h2 className="text-center mb-4" >My Profile</h2>
         <h6 className='text-center'>Personal Details</h6>
-        
-        
-    <Form >
+    <Form>
       <Form.Group className="mb-3">
          <Form.Control type="text" id='name' className={!changeDetails ? 'profileName' : 'profileNameActive' } 
           disabled={!changeDetails} value={name}
           onChange={onChange}
          /> 
       </Form.Group>
-
       <Form.Group className="mb-3" >
-         <Form.Control type="text" id='email' className={!changeDetails ? 'profileName' : 'profileEmailActive' } 
-          disabled={!changeDetails} value={email}
-          onChange={onChange}
+         <Form.Control type="text" id='email' 
+          disabled value={email}
          /> 
       </Form.Group>
       <h6 className='changePersonalDetails' onClick={() => {
