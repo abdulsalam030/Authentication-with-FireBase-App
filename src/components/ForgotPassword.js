@@ -3,21 +3,30 @@ import { Form, Button, Card } from "react-bootstrap";
 import { useNavigate,Link  } from 'react-router-dom';
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import {toast} from 'react-toastify'
+import Spinner from "./Spinner";
+
 
 
 
 
 function ForgotPassword() {
     const [email,setEmail] = useState('')
+    const [loading, setLoading] = useState(false);
+
 
     const onSubmit = async (e) => {
         e.preventDefault()
         try {
+          setLoading(true);
             const auth = getAuth()
             await sendPasswordResetEmail(auth,email)
+            setLoading(false)
             toast.success("Email was Sent Succesfully")
         } catch (error) {
+          setLoading(false);
             toast.error("Email not Sent")
+            const errorMessage = error.message;
+            toast.error(errorMessage);
             
         }
 
@@ -25,6 +34,9 @@ function ForgotPassword() {
 
     const onChange = (e) => setEmail(e.target.value)
 
+    if (loading) {
+      return <Spinner />;
+    }
 
 
   return (
